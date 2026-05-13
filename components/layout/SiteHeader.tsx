@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FilmIcon, UploadIcon } from "lucide-react";
 import { Button, Avatar, AvatarFallback, AvatarImage } from "@/components/ui";
 import { ThemeToggle } from "./ThemeToggle";
+import { MobileNavMenu } from "./mobile-nav";
 
 function SiteHeader() {
   return (
@@ -12,7 +13,7 @@ function SiteHeader() {
             <FilmIcon className="size-6" />
             <span className="text-lg font-bold">Let&apos;s Video</span>
           </Link>
-
+          <MobileNavMenu />
           <nav className="hidden flex-1 items-center gap-6 sm:flex">
             <Link
               href="/"

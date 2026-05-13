@@ -57,14 +57,14 @@ export const MOCK_VIDEOS: MockVideo[] = [
   {
     id: "v-003",
     title: "Sunday Morning Coffee Routine",
-    uploaderName: "Aya",
+    uploaderName: "Ayana",
     createdAt: new Date(now - 14 * HOUR),
     album: albumBySlug("daily-vlog"),
   },
   {
     id: "v-004",
     title: "Mom's 60th Birthday Dinner",
-    uploaderName: "Aya",
+    uploaderName: "Ayana",
     createdAt: new Date(now - 26 * HOUR),
     album: albumBySlug("family"),
   },
@@ -78,7 +78,7 @@ export const MOCK_VIDEOS: MockVideo[] = [
   {
     id: "v-006",
     title: "Kyoto Bamboo Forest Walk",
-    uploaderName: "Aya",
+    uploaderName: "Ayana",
     createdAt: new Date(now - 2 * 24 * HOUR),
     album: albumBySlug("travel"),
   },
@@ -92,7 +92,7 @@ export const MOCK_VIDEOS: MockVideo[] = [
   {
     id: "v-008",
     title: "Cooking Gyoza Together",
-    uploaderName: "Aya",
+    uploaderName: "Ayana",
     createdAt: new Date(now - 4 * 24 * HOUR),
     album: albumBySlug("family"),
   },
@@ -113,7 +113,7 @@ export const MOCK_VIDEOS: MockVideo[] = [
   {
     id: "v-011",
     title: "Dad's New Garden Setup",
-    uploaderName: "Aya",
+    uploaderName: "Ayana",
     createdAt: new Date(now - 10 * 24 * HOUR),
     album: albumBySlug("family"),
   },
