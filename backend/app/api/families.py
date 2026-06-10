@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.family import FamilyCreate, FamilyResponse
 from app.services.supabase_client import supabase
 
-router = APIRouter()
+router = APIRouter(tags=["Families"])
 
 @router.post("/", response_model=FamilyResponse)
 async def create_family(family: FamilyCreate):
