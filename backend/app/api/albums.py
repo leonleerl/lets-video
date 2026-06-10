@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.album import AlbumCreate, AlbumUpdate
 from app.services.supabase_client import supabase
 
-router = APIRouter()
+router = APIRouter(tags=["Albums"])
 
 
 @router.post("")
