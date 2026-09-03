@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Clapperboard } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
@@ -5,15 +6,18 @@ import { Separator } from "@/components/ui/separator";
 const footerGroups = [
   {
     title: "Product",
-    links: ["Family Spaces", "Video Sharing", "Memory Timeline", "Natural Search"],
+    links: [
+      { label: "Family Spaces", href: "#features" },
+      { label: "Video Sharing", href: "#features" },
+      { label: "Memory Timeline", href: "#timeline" },
+    ],
   },
   {
-    title: "AI Agents",
-    links: ["Memory Understanding", "Memory Organisation", "Memory Search", "Family Story"],
-  },
-  {
-    title: "About",
-    links: ["Vision", "Roadmap", "Privacy & Security", "Contact"],
+    title: "Get started",
+    links: [
+      { label: "Sign in", href: "/login" },
+      { label: "Create a space", href: "/signup" },
+    ],
   },
 ];
 
@@ -21,7 +25,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(2,1fr)]">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <span className="flex size-8 items-center justify-center rounded-lg bg-primary/15 text-primary">
@@ -32,8 +36,8 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Preserve family memories across borders. A private, warm video space
-              for families living all around the world.
+              Preserve family memories across borders. A private video space for
+              families living around the world.
             </p>
           </div>
 
@@ -42,13 +46,13 @@ export function SiteFooter() {
               <p className="text-sm font-medium text-foreground">{group.title}</p>
               <ul className="space-y-2">
                 {group.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
                       className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -59,7 +63,7 @@ export function SiteFooter() {
         <Separator className="my-8" />
 
         <div className="flex flex-col items-center justify-between gap-3 text-sm text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} LetsVideo · Family Memory Platform</p>
+          <p>© {new Date().getFullYear()} LetsVideo · Private family video platform</p>
           <p>Preserving every moment worth remembering.</p>
         </div>
       </div>

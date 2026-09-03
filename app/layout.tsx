@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "LetsVideo · Preserve Family Memories Across Borders",
   description:
-    "LetsVideo is a private family video platform that helps families living across different countries securely upload, share, organise, and rediscover their precious memories.",
+    "LetsVideo is a private, self-hosted family video platform. Upload, organise, and watch family videos without putting them on a public social network.",
 };
 
 export default function RootLayout({

@@ -1,231 +1,67 @@
 # LetsVideo
 
-### AI-Powered Family Memory Platform
+LetsVideo is a private, self-hosted family video platform. Clone the repository, connect your own AWS and Supabase accounts, and run a YouTube-like library that only your family can see.
 
-LetsVideo is a private family video platform designed for families living across different countries and regions.
+It is not a public social network. It does not depend on any personal domain. You deploy it with your own cloud accounts.
 
-The project was inspired by a real-world problem. My family members live in China, Australia, and Japan. Sharing videos across different messaging platforms such as WeChat, LINE, WhatsApp, and Messenger is often inconvenient. Family memories become fragmented across multiple applications, making them difficult to organise, search, and revisit over time.
+AI features are intentionally out of scope until the core video platform works.
 
-LetsVideo aims to solve this problem by providing a dedicated family space where loved ones can upload, share, preserve, and rediscover their memories through videos.
+## Architecture
 
-In the future, LetsVideo will evolve into an AI-powered family memory platform that not only stores videos but also understands, organises, and tells the stories behind those memories.
+```text
+                        Next.js
+                           |
+             +-------------+-------------+
+             |             |             |
+             v             v             v
+         Supabase      Media API      CloudFront
+         (auth +       (later)        (later)
+          metadata)
+```
 
----
+**Now (Phase 1):** Next.js App Router, Supabase Auth, environment validation, marketing and signed-in shells.
 
-# Vision
+**Later:** family spaces and RLS, AWS S3 / MediaConvert / CloudFront HLS, likes, albums, tags.
 
-Preserve family memories across borders.
+See [docs/architecture.md](docs/architecture.md).
 
-LetsVideo helps families:
+## Prerequisites
 
-* Share private videos securely
-* Organise memories automatically
-* Search memories naturally
-* Build family timelines
-* Rediscover meaningful moments
-* Preserve family stories for future generations
+- Node.js 20+
+- npm
+- A Supabase project you control
 
----
+AWS CLI and Terraform are not required until the infrastructure phase.
 
-# Problem Statement
+## Quick start
 
-Modern families are increasingly distributed across different countries.
+```bash
+git clone https://github.com/leonleerl/lets-video.git
+cd lets-video
+npm install
+cp .env.example .env.local
+```
 
-A typical family may use:
+Fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Then:
 
-* WeChat (China)
-* LINE (Japan)
-* WhatsApp (Australia)
-* Google Photos
-* iCloud Photos
+```bash
+npm run dev
+```
 
-As a result:
+Open [http://localhost:3000](http://localhost:3000).
 
-* Videos are scattered across multiple platforms
-* Important memories become difficult to find
-* Family history becomes fragmented
-* Valuable moments are often forgotten
+Supabase dashboard steps are in [docs/supabase-setup.md](docs/supabase-setup.md). Day-to-day commands are in [docs/development.md](docs/development.md).
 
-LetsVideo provides a centralised and private space dedicated to family memories.
+## Security
 
----
+- Never commit AWS keys, Supabase secret keys, or `.env.local`.
+- Never expose `SUPABASE_SECRET_KEY` (or any server secret) with a `NEXT_PUBLIC_` prefix.
+- AWS credentials belong in the standard credential chain (CLI profile, SSO, environment) — not in application env files.
 
-# Core Features
+## Cost
 
-## Family Spaces
+The long-term AWS design is serverless so idle cost stays low. Phase 1 only uses Next.js locally and a Supabase project.
 
-Create a private family space and invite family members.
+## Contributing
 
-Examples:
-
-* Lee Family
-* Tanaka Family
-* Smith Family
-
-Each family has its own private video library.
-
----
-
-## Video Sharing
-
-Family members can:
-
-* Upload videos
-* Browse videos
-* Watch videos together
-* Search videos
-* Organise videos
-
----
-
-## Memory Timeline
-
-Automatically organise memories by:
-
-* Year
-* Month
-* Event
-* Family member
-
-Helping families revisit important moments through time.
-
----
-
-# AI Agent Roadmap
-
-The long-term goal of LetsVideo is to become an AI-powered Family Memory Agent.
-
-## Memory Understanding Agent
-
-When a video is uploaded, the AI Agent can:
-
-* Understand the video content
-* Generate memory descriptions
-* Identify important events
-* Generate searchable metadata
-* Create meaningful tags
-
-Example:
-
-Video:
-
-Birthday Party.mp4
-
-Generated Memory:
-
-"Tom celebrated her 5th birthday with her family at Hong Kong Disneyland."
-
----
-
-## Memory Organisation Agent
-
-Automatically categorise memories into:
-
-* Travel
-* Birthday
-* School
-* Holiday
-* Family Gathering
-* Wedding
-
-No manual organisation required.
-
----
-
-## Memory Search Agent
-
-Users can ask questions such as:
-
-* When was Tom's first trip to South Korea?
-* Show me all birthday videos from 2025.
-* Find videos taken in Singapore.
-
-The AI Agent searches memories and returns relevant results.
-
----
-
-## Family Story Agent
-
-Generate:
-
-* Annual family reviews
-* Family timelines
-* Growth stories
-* Memory summaries
-
-Example:
-
-"Summarise our family's 2026 memories."
-
----
-
-## Memory Documentary Agent
-
-Future versions will help generate:
-
-* Family documentaries
-* Growth journey videos
-* Event highlight reels
-* Narrated memory collections
-
----
-
-# Technology Stack
-
-## Frontend
-
-* Next.js
-* TypeScript
-* Tailwind CSS
-
-## Backend
-
-* Python
-* FastAPI
-
-## AI
-
-* OpenAI API
-* LangGraph
-* LangChain
-
-## Database
-
-* PostgreSQL
-* pgvector
-
-## Cloud
-
-* AWS S3
-* AWS RDS
-* AWS ECS
-
----
-
-# Project Goals
-
-This project is being built to explore and learn:
-
-* AI Agents
-* Function Calling
-* Retrieval-Augmented Generation (RAG)
-* LangGraph Workflows
-* Semantic Search
-* Video Metadata Understanding
-* Cloud-Native Architecture
-* Full-Stack AI Development
-
----
-
-# Current Status
-
-🚧 Early Development
-
-The first milestone focuses on:
-
-* Family spaces
-* Video upload
-* Video playback
-* Video sharing
-
-AI-powered memory understanding and search capabilities will be introduced in future releases.
+This repository is being rebuilt in phases. Please do not add AI providers, FastAPI services, or AWS shortcuts until the matching phase.
