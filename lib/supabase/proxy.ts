@@ -8,7 +8,11 @@ function isAuthPath(pathname: string) {
 }
 
 function isProtectedPath(pathname: string) {
-  return pathname === "/home" || pathname.startsWith("/home/");
+  return (
+    pathname === "/home" ||
+    pathname.startsWith("/home/") ||
+    pathname.startsWith("/family")
+  );
 }
 
 export async function updateSession(request: NextRequest) {

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "node -e \"console.log('Apply SQL files in supabase/migrations/ via the Supabase SQL Editor. See docs/supabase-setup.md')\""
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.5",

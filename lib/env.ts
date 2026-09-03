@@ -9,7 +9,12 @@ const publicEnvSchema = z.object({
     .min(1, "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is required"),
 });
 
+const secretEnvSchema = z.object({
+  SUPABASE_SECRET_KEY: z.string().min(1, "SUPABASE_SECRET_KEY is required"),
+});
+
 export type PublicEnv = z.infer<typeof publicEnvSchema>;
+export type SecretEnv = z.infer<typeof secretEnvSchema>;
 
 function missingEnvMessage(issues: z.ZodIssue[]): string {
   const fields = issues
@@ -19,7 +24,7 @@ function missingEnvMessage(issues: z.ZodIssue[]): string {
 
   return [
     `Missing or invalid environment variables${fields ? `: ${fields}` : "."}`,
-    "Copy .env.example to .env.local and add your Supabase project URL and publishable key.",
+    "Copy .env.example to .env.local and fill in the values.",
     "See docs/supabase-setup.md.",
   ].join(" ");
 }
@@ -29,6 +34,18 @@ export function getPublicEnv(): PublicEnv {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  });
+
+  if (!parsed.success) {
+    throw new Error(missingEnvMessage(parsed.error.issues));
+  }
+
+  return parsed.data;
+}
+
+export function getSecretEnv(): SecretEnv {
+  const parsed = secretEnvSchema.safeParse({
+    SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
   });
 
   if (!parsed.success) {
