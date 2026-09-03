@@ -14,9 +14,14 @@ import { createClient } from "@/lib/supabase/client";
 type LoginFormProps = {
   nextPath?: string;
   callbackError?: string;
+  defaultEmail?: string;
 };
 
-export function LoginForm({ nextPath, callbackError }: LoginFormProps) {
+export function LoginForm({
+  nextPath,
+  callbackError,
+  defaultEmail,
+}: LoginFormProps) {
   const router = useRouter();
   const [error, setError] = useState(callbackError ?? "");
   const [pending, setPending] = useState(false);
@@ -67,6 +72,7 @@ export function LoginForm({ nextPath, callbackError }: LoginFormProps) {
           required
           className="h-10"
           placeholder="you@example.com"
+          defaultValue={defaultEmail}
         />
       </div>
       <div className="space-y-2">

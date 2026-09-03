@@ -15,23 +15,22 @@ AI features are intentionally out of scope until the core video platform works.
              |             |             |
              v             v             v
          Supabase      Media API      CloudFront
-         (auth +       (later)        (later)
-          metadata)
+         (auth +       (Terraform     (Terraform
+          metadata)     stub API)      private CDN)
 ```
 
-**Now (Phase 1):** Next.js App Router, Supabase Auth, environment validation, marketing and signed-in shells.
+**Now (Phase 1–3):** Next.js App Router, Supabase Auth, family spaces / invitations / RLS, and Terraform for the AWS media backbone (S3, SQS, Lambda stubs, API Gateway, CloudFront).
 
-**Later:** family spaces and RLS, AWS S3 / MediaConvert / CloudFront HLS, likes, albums, tags.
+**Later:** multipart upload, real MediaConvert jobs, signed HLS playback, likes, albums, tags.
 
-See [docs/architecture.md](docs/architecture.md).
+See [docs/architecture.md](docs/architecture.md) and [docs/aws-setup.md](docs/aws-setup.md).
 
 ## Prerequisites
 
 - Node.js 20+
 - npm
 - A Supabase project you control
-
-AWS CLI and Terraform are not required until the infrastructure phase.
+- For Phase 3 infrastructure: AWS CLI + Terraform `>= 1.5`
 
 ## Quick start
 
@@ -42,7 +41,16 @@ npm install
 cp .env.example .env.local
 ```
 
-Fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Then:
+Fill in:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+SUPABASE_SECRET_KEY=
+```
+
+Apply [`supabase/migrations/20260903000000_family_system.sql`](supabase/migrations/20260903000000_family_system.sql) in the Supabase SQL Editor. Then:
 
 ```bash
 npm run dev
@@ -50,7 +58,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Supabase dashboard steps are in [docs/supabase-setup.md](docs/supabase-setup.md). Day-to-day commands are in [docs/development.md](docs/development.md).
+Supabase dashboard steps are in [docs/supabase-setup.md](docs/supabase-setup.md). Day-to-day commands are in [docs/development.md](docs/development.md). AWS infrastructure is in [docs/aws-setup.md](docs/aws-setup.md).
+
+## AWS infrastructure (Phase 3)
+
+```bash
+cd infrastructure/environments/default
+terraform init
+terraform plan
+# terraform apply   # only when you want real AWS resources
+```
 
 ## Security
 
@@ -60,7 +77,7 @@ Supabase dashboard steps are in [docs/supabase-setup.md](docs/supabase-setup.md)
 
 ## Cost
 
-The long-term AWS design is serverless so idle cost stays low. Phase 1 only uses Next.js locally and a Supabase project.
+The AWS design is serverless so idle cost stays low. Until you `terraform apply`, local development only needs Next.js and Supabase. After apply, S3 / CloudFront / API Gateway / Lambda create small ongoing costs even before uploads.
 
 ## Contributing
 

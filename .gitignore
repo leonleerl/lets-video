@@ -23,10 +23,15 @@ build
 __pycache__
 *.pyc
 
-# terraform / local setup (future phases)
+# terraform / local setup
 .terraform/
 *.tfstate
 *.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+!*.tfvars.example
+infrastructure/modules/lambda/build/
 .letsvideo/
 
 # misc
