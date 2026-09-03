@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { label: "Features", href: "#features" },
   { label: "Timeline", href: "#timeline" },
-  { label: "AI Agents", href: "#ai" }
 ];
 
 export function SiteHeader() {
@@ -35,10 +34,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="lg" className="hidden sm:inline-flex">
-            Sign in
+          <Button variant="ghost" size="lg" className="hidden sm:inline-flex" asChild>
+            <Link href="/login">Sign in</Link>
           </Button>
-          <Button size="lg">Create Family Space</Button>
+          <Button size="lg" asChild>
+            <Link href="/signup">Create Family Space</Link>
+          </Button>
         </div>
       </div>
     </header>
